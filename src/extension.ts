@@ -1,26 +1,123 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-import * as vscode from 'vscode';
+import * as vscode from "vscode";
+import * as fs from "fs";
+import * as path from "path";
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
+let componentFileTemplate = `import React from 'react';
+import styles from './COMPONENT_NAME.module.scss';
+
+const COMPONENT_NAME = () => {
+	return (
+	<>
+		<div className={styles.COMPONENT_NAME}>
+		COMPONENT_NAME
+		</div>
+	</>
+	);
+};
+
+export default COMPONENT_NAME;
+`;
+
+const testFileTemplate = `import React from 'react';
+import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
+import COMPONENT_NAME from './COMPONENT_NAME';
+
+describe('COMPONENT_NAME', () => {
+  test('renders COMPONENT_NAME component', () => {
+    render(<COMPONENT_NAME />);
+    expect(screen.getByText(/COMPONENT_NAME/i)).toBeInTheDocument();
+  });
+});
+`;
+
+const indexFileTemplate = `export { default } from './COMPONENT_NAME';\n`;
+
 export function activate(context: vscode.ExtensionContext) {
+  let disposable = vscode.commands.registerCommand(
+    "react-component-generator.createComponent",
+    async (clickedFolder: vscode.Uri) => {
+      const componentName = await vscode.window.showInputBox({
+        prompt: "Enter the component name",
+      });
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "react-component-generator" is now active!');
+      if (!componentName) {
+        vscode.window.showErrorMessage("Component name is required");
+        return;
+      }
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('react-component-generator.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from React Component Generator!');
-	});
+      if (!clickedFolder) {
+        vscode.window.showErrorMessage("No folder selected");
+        return;
+      }
 
-	context.subscriptions.push(disposable);
+      const targetFolder = clickedFolder.fsPath;
+      const componentFolder = path.join(targetFolder, componentName);
+
+      try {
+        fs.mkdirSync(componentFolder);
+
+        const config = vscode.workspace.getConfiguration(
+          "react-component-generator"
+        );
+
+        const componentFile = config.get("componentFile") as string;
+        const styleFile = config.get("styleFile") as string;
+        const indexFile = config.get("indexFile") as string;
+        const testFile = config.get("testFile") as string;
+
+        const componentContent = componentFileTemplate.replace(
+          /COMPONENT_NAME/g,
+          componentName
+        );
+
+        const indexContent = indexFileTemplate.replace(
+          /COMPONENT_NAME/g,
+          componentName
+        );
+        const styleContent = `.${componentName} {}\n`;
+
+        const files = [
+          { name: componentFile, content: componentContent },
+          { name: styleFile, content: styleContent },
+          { name: indexFile, content: indexContent },
+        ];
+
+        if (testFile) {
+          const testContent = testFileTemplate.replace(
+            /COMPONENT_NAME/g,
+            componentName
+          );
+          files.push({
+            name: testFile.replace(/\$COMPONENT_NAME/g, componentName),
+            content: testContent,
+          });
+        }
+
+        files.forEach((file) => {
+          const fileName = file.name.replace(
+            /\$COMPONENT_NAME/g,
+            componentName
+          );
+          const fileContent = file.content.replace(
+            /\$COMPONENT_NAME/g,
+            componentName
+          );
+          fs.writeFileSync(path.join(componentFolder, fileName), fileContent);
+        });
+
+        vscode.window.showInformationMessage(
+          `Component ${componentName} created successfully`
+        );
+      } catch (error: any) {
+        vscode.window.showErrorMessage(
+          `Error creating component: ${error.message}`
+        );
+      }
+    }
+  );
+
+  context.subscriptions.push(disposable);
 }
 
-// This method is called when your extension is deactivated
 export function deactivate() {}
