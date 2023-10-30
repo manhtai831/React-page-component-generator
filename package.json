@@ -1,9 +1,9 @@
 {
   "name": "react-component-generator-full",
-  "displayName": "React Component Generator [v2.2.7]",
+  "displayName": "React Component Generator [v2.2.8]",
   "icon": "logo.png",
   "description": "A VSCode extension for generating component folders properly.",
-  "version": "2.2.7",
+  "version": "2.2.8",
   "publisher": "IgorMatosDev",
   "engines": {
     "vscode": "^1.83.0"
