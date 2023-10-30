@@ -9,15 +9,9 @@ A Visual Studio Code extension for quickly generating React component folders wi
 - Fully customizable file templates
 - Supports placeholders for dynamic content
 
-## Getting Started
-
-### Installation
-
-1. Open Visual Studio Code.
-2. Press `Ctrl+P` (or `Cmd+P` on macOS) to open the Quick Open dialog.
-3. Type `ext install react-component-generator` and press Enter.
-
 ### Usage
+
+![](https://raw.githubusercontent.com/igormatosDev/react-component-generator/master/demo.gif)
 
 1. Right-click on a folder in the Explorer panel where you want to create a new component.
 2. Select "Create React Component" from the context menu.
