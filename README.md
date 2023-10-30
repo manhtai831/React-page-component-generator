@@ -1,71 +1,61 @@
-# react-component-generator README
+# React Component Generator
 
-This is the README for your extension "react-component-generator". After writing up a brief description, we recommend including the following sections.
+A Visual Studio Code extension for quickly generating React component folders with customizable file templates.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- Generate React components with a single command
+- Automatically create associated files such as styles and tests
+- Fully customizable file templates
+- Supports placeholders for dynamic content
 
-For example if there is an image subfolder under your extension project workspace:
+## Getting Started
 
-\!\[feature X\]\(images/feature-x.png\)
+### Installation
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+1. Open Visual Studio Code.
+2. Press `Ctrl+P` (or `Cmd+P` on macOS) to open the Quick Open dialog.
+3. Type `ext install react-component-generator` and press Enter.
 
-## Requirements
+### Usage
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+1. Right-click on a folder in the Explorer panel where you want to create a new component.
+2. Select "Create React Component" from the context menu.
+3. Enter the name of the new component in the input box that appears.
+4. The extension will generate a new folder with the specified component name and create the necessary files inside it.
 
-## Extension Settings
+## Configuration
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+You can customize the generated files by updating the following settings in your VS Code settings:
 
-For example:
+- `react-component-generator.componentFile`: File name for the main component file (use `$COMPONENT_NAME` as a placeholder). Default: `$COMPONENT_NAME.tsx`
+- `react-component-generator.componentContent`: Content for the main component file (use `$COMPONENT_NAME` as a placeholder). Default: [basic functional component template]
+- `react-component-generator.styleFile`: File name for the style file (use `$COMPONENT_NAME` as a placeholder). Default: `$COMPONENT_NAME.module.scss`
+- `react-component-generator.indexFile`: File name for the index file. Default: `index.ts`
+- `react-component-generator.indexContent`: Content for the index file (use `$COMPONENT_NAME` as a placeholder). Default: `export { default } from './$COMPONENT_NAME';\n`
+- `react-component-generator.testFile`: File name for the test file (use `$COMPONENT_NAME` as a placeholder, leave empty to disable). Default: ""
+- `react-component-generator.testFileContent`: Content for the test file (use `$COMPONENT_NAME` as a placeholder). Default: [basic test template using React Testing Library]
 
-This extension contributes the following settings:
+To configure these settings, go to File > Preferences > Settings (or Code > Preferences > Settings on macOS), and search for "React Component Generator" or the name of your extension in the search bar at the top of the Settings tab.
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+## Example
 
-## Known Issues
+Let's say you want to generate a new component called `MyComponent`. After installing the extension, right-click on the folder where you want to create the component and select "Create React Component". Enter `MyComponent` in the input box that appears.
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+The extension will generate a new folder named `MyComponent` and create the following files inside it:
 
-## Release Notes
+- `MyComponent.tsx`: The main component file with a basic functional component template.
+- `MyComponent.module.scss`: An empty SCSS module file for styling the component.
+- `index.ts`: An index file that exports the component.
 
-Users appreciate release notes as you update your extension.
+If you have configured a test file, it will also generate a test file with the specified name and content.
 
-### 1.0.0
+## Contributing
 
-Initial release of ...
+If you encounter any issues or have suggestions for improvements, please [open an issue](https://github.com/your-github-username/react-component-generator/issues) on GitHub.
 
-### 1.0.1
+Contributions are welcome! Feel free to submit a pull request with bug fixes or new features.
 
-Fixed issue #.
+## License
 
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+This extension is released under the [MIT License](https://opensource.org/licenses/MIT).
