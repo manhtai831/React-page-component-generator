@@ -117,6 +117,21 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
+  function openSettings() {
+    vscode.commands.executeCommand(
+      "workbench.action.openSettings",
+      "@ext:IgorMatosDev.react-component-generator-full"
+    );
+  }
+
+  // Register the openSettings command
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      "react-component-generator.openSettings",
+      openSettings
+    )
+  );
+
   context.subscriptions.push(disposable);
 }
 
