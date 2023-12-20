@@ -1,6 +1,6 @@
 {
-  "name": "react-component-generator-full",
-  "displayName": "React Component Generator [v2.2.8]",
+  "name": "react-page-component-generator-full",
+  "displayName": "React Page Component Generator",
   "icon": "logo.png",
   "description": "A VSCode extension for generating component folders properly.",
   "version": "2.2.8",
@@ -10,13 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/igormatosdev/react-component-generator.git"
+    "url": "https://github.com/manhtai831/React-page-component-generator.git"
   },
   "categories": [
     "Other"
   ],
   "activationEvents": [
-    "onCommand:react-component-generator.createComponent"
+    "onCommand:react-component-generator.createComponent",
+    "onCommand:react-component-generator.createPage"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -24,6 +25,10 @@
       {
         "command": "react-component-generator.createComponent",
         "title": "Create React Component"
+      },
+      {
+        "command": "react-component-generator.createPage",
+        "title": "Create React Page"
       },
       {
         "command": "react-component-generator.openSettings",
@@ -34,6 +39,10 @@
       "explorer/context": [
         {
           "command": "react-component-generator.createComponent",
+          "when": "explorerResourceIsFolder"
+        },
+        {
+          "command": "react-component-generator.createPage",
           "when": "explorerResourceIsFolder"
         }
       ]

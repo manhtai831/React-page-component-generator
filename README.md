@@ -1,5 +1,7 @@
 # React Component Generator
 
+Package fork from [React Component Generator [v2.2.8]](https://marketplace.visualstudio.com/items?itemName=IgorMatosDev.react-component-generator-full)
+
 A Visual Studio Code extension for quickly generating React component folders with customizable file templates.
 
 ## Features
